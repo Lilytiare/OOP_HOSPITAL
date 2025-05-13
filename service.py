@@ -14,8 +14,25 @@ class Service(ABC):
 # Registering class - inherits from Service
 
 class Registering(Service):
-    def __init__(self):
-        pass
+    def __init__(self, doctor, patient, illness):
+        self.doctor = doctor
+        self.patient = patient
+        self.illness = illness
+
+    @property
+    def final_result(self):
+        return {
+            "doctor": self.doctor,
+            "patient": self.patient,
+            "illness": self.illness
+        }
+
+    def discharge(self, patient):
+        if patient.registering_status:
+            patient.registering_status = False
+        else:
+            return "The patient has already been discharged." # maybe create an error for this? 
+
     def status(self, patient):
         if patient.registering_status:
             return f"The patient {patient.name} is currently admitted in our hospital."
