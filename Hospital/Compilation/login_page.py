@@ -20,7 +20,7 @@ def search_staff():
         if id in data:
             if password == data[id]["password"]:
                 root.destroy()
-                main_page_compilation(role,id)
+                main_page_compilation(role,id, data[id]["department"])
         else:
             messagebox.showwarning(title=f"Warning", message="Staff not found")
 

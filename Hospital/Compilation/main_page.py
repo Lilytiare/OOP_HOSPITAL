@@ -4,6 +4,8 @@ from tkinter import messagebox
 import pandas as pd
 import json
 
+from numpy.ma.core import inner
+
 from Hospital.Person.Person import assign_doctor
 from Hospital.Services.Registering import Registration, STAFF_FILENAME
 from Hospital.Person.Patient.Patient import Patient
@@ -24,12 +26,9 @@ BACKGROUND_IMAGE_PATH = 'images/img.png'
 ICON_IMAGE_PATH = 'images/img_1.png'
 PATIENT_REGISTRATION_IMAGE = 'images/img_2.png'
 VIEW_INFO_IMAGE = 'images/img_3.png'
+
 PATIENTS_FILENAME = ''
-patients_data = pd.read_csv(PATIENTS_FILENAME)
 list_of_department_patients =[]
-for index, row in patients_data.iterrows():
-    row_dict = row.to_dict()
-    list_of_department_patients.append(Patient(row_dict["age"], row_dict["id"],row_dict["name"], row_dict["contact_info"], row_dict["urgency_level"], row_dict["health_insurance"]))
 
 # remove_staff() -> admin
 # add_staff() -> admin
@@ -95,21 +94,22 @@ def view_info():
     if global_role == "doctor":
         output_text += f"Specialization: {staff.specialization}\nList of Patients: {" ".join(staff.list_of_patients)}\nCurrent busyness: {len(staff.list_of_patients)}/{staff.max_patients}"
     messagebox.showinfo(title=f"{global_role.capitalize()}", message=output_text)
-def main_page_compilation(input_role, input_id):
+def main_page_compilation(input_role, input_id, inner_department_name):
     global global_role
     global_role = input_role
 
     global global_id
     global_id = input_id
-    with open(STAFF_FILENAME, "r") as data_file:
-        data = json.load(data_file)
-        global department_name
-        department_name = data[input_id]["department"]
-    global department
-    department = GeneralPractice(20) if department_name == "general" else EmergencyDepartment(20)
 
+    global department
+    department = GeneralPractice(20) if inner_department_name == "general" else EmergencyDepartment(20)
+
+    global department_name
+    department_name  = inner_department_name
     global PATIENTS_FILENAME
-    PATIENTS_FILENAME = f'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/{department_name}'
+    PATIENTS_FILENAME = f'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/{inner_department_name}.csv'
+    patients_data = pd.read_csv(PATIENTS_FILENAME)
+
     root = Tk()
     root.title("Hospital Management System")
     root.geometry("740x416")
@@ -150,4 +150,4 @@ def staff_list():
 #         department.assign_department(patient)
 
 # main_page_compilation("nurse", "7654321")
-patient_registration()
+# patient_registration()

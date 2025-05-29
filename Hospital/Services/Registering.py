@@ -33,6 +33,7 @@ class Registration:
         data = pd.concat([data, new_row], ignore_index=True)
         data.to_csv(filename, index=False)
         return data, patient.id
+
     def save_edit_staff_data(self, staff):
         final_result = {staff.id:{
             "age": staff.age,
@@ -58,6 +59,7 @@ class Registration:
             with open(STAFF_FILENAME, "w") as data_file:
                 json.dump(data, data_file, indent=4)
         return data, staff.id
+
     def patient_register(self, patient, filename):
         data, patient_id = self.save_edit_patient_data(patient, filename=filename)
         if patient_id in data["id"].to_list():
