@@ -21,3 +21,10 @@ class EmergencyDepartment(Department):
             self.nurses.append(staff)
             staff.department = "Emergency"
         print(f"{staff.name} added to {self._name} department.")
+
+    def assign_department(self, patient):
+        if len(self.list_of_patients) < self.capacity:
+            self.list_of_patients.append(patient)
+            patient.department = "Emergency"
+        else:
+            return "Emergency Department is at full capacity!"

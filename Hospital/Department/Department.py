@@ -42,3 +42,7 @@ class Department(ABC):
     @abstractmethod
     def add_staff(self, staff):
         pass
+
+    @abstractmethod
+    def assign_department(self):
+        pass

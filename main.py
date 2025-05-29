@@ -14,8 +14,7 @@ def c_o(o):
         print(o)
 
 
-def assign_patient_to_department(nurse, patient):
-    nurse.give_urgency_lvl(patient)
+def assign_patient_to_department(General, Emergency, nurse, patient):
     if patient.urgency_level >= 3:
         Emergency.assign_department(patient)
     else:
@@ -106,14 +105,10 @@ if __name__ == "__main__":
     print(Dr1.get_current_patients())
     print(Dr2.get_current_patients())
 
-    print(RS.status(patient1))
-
     print(Dr1.discharge(patient3))
     print(f"Registering status of {patient1.name}:", patient1.registering_status)
     print(Dr1.discharge(patient1))
     print(f"Registering status of {patient1.name}:", patient1.registering_status)
-
-    print(RS.status(patient1))
 
     print(BS.get_price(patient1, treatmentED))
     print(patient1.medical_history)
