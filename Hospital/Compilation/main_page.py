@@ -98,7 +98,7 @@ def view_info():
     # messagebox.showinfo(title=f"{patient.id}", message=f"Patient: {patient.name}, ID: {patient.id}\n Age: {patient.age}, Contact Info: {patient.contact_info} was registered successfully")
     output_text = f"Employee: {staff.name}\nID: {staff.id}\nAge: {staff.age}\nContact Info: {staff.contact_info}\nShift: {staff.shift}\nDepartment: {staff.department}\n"
     if global_role == "doctor":
-        output_text += f"Specialization: {staff.specialization}\nList of Patients: {" ".join(staff.list_of_patients)}\nCurrent busyness: {len(staff.list_of_patients)}/{staff.max_patients}"
+        output_text += f"Specialization: {staff.specialization}\nList of Patients: {' '.join(staff.list_of_patients)}\nCurrent busyness: {len(staff.list_of_patients)}/{staff.max_patients}"
     messagebox.showinfo(title=f"{global_role.capitalize()}", message=output_text)
 def main_page_compilation(input_role, input_id, inner_department_name):
     global global_role

@@ -2,7 +2,8 @@ from typing import final
 
 import pandas as pd
 
-STAFF_FILENAME = 'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/staff.json'
+#STAFF_FILENAME = 'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/staff.json'
+STAFF_FILENAME = '../Compilation/Data Base/staff.json'
 
 from Hospital.Person.Patient.Patient import *
 import json
