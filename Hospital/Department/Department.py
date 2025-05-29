@@ -44,5 +44,5 @@ class Department(ABC):
         pass
 
     @abstractmethod
-    def assign_department(self):
+    def assign_department(self, patient):
         pass

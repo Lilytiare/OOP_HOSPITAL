@@ -27,15 +27,22 @@ ICON_IMAGE_PATH = 'images/img_1.png'
 PATIENT_REGISTRATION_IMAGE = 'images/img_2.png'
 VIEW_INFO_IMAGE = 'images/img_3.png'
 
-PATIENTS_FILENAME = ''
 list_of_department_patients =[]
-
+PATIENTS_FILENAME = ''
+def parse_patients():
+    patients_data = pd.read_csv(PATIENTS_FILENAME)
+    for index, row in patients_data.iterrows():
+        row_dict = row.to_dict()
+        list_of_department_patients.append(Patient(row_dict["age"], row_dict["id"],row_dict["name"], row_dict["contact_info"], row_dict["urgency_level"], row_dict["health_insurance"]))
 # remove_staff() -> admin
 # add_staff() -> admin
 # Change department
 # appoint doctor -> Nurse
 #edit filenames
 # Maybe we should have 3 lists containing 3
+# change the status
+# the patients list should be a window in which the doctor will be assigning tasks to (for) the patient
+
 
 def patient_registration():
     root = Toplevel()
@@ -85,7 +92,6 @@ def patient_registration():
         register.patient_register(patient, f'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/{department_name}.csv')
         root.destroy()
     Button(root, text="Register", command=collect_data, width=15).place(x=370, y=210)
-
     root.mainloop()
     return age_input.get(),id_input.get(),name_input.get(),contact_info.get(),urgency_level.get(),bool(selected_option.get())
 def view_info():
@@ -108,8 +114,7 @@ def main_page_compilation(input_role, input_id, inner_department_name):
     department_name  = inner_department_name
     global PATIENTS_FILENAME
     PATIENTS_FILENAME = f'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/{inner_department_name}.csv'
-    patients_data = pd.read_csv(PATIENTS_FILENAME)
-
+    parse_patients()
     root = Tk()
     root.title("Hospital Management System")
     root.geometry("740x416")
@@ -130,6 +135,16 @@ def main_page_compilation(input_role, input_id, inner_department_name):
 
     root.mainloop()
 def patients_list():
+    root = Toplevel()
+    root.title("Hospital Management System")
+    original_bg = Image.open(VIEW_INFO_IMAGE)
+    if global_role == "doctor":
+        root.geometry("380x275")
+        resized_bg = ImageTk.PhotoImage(original_bg.resize((380, 275)))
+    else:
+        root.geometry("380x222")
+        resized_bg = ImageTk.PhotoImage(original_bg.resize((380, 222)))
+
     department.list_of_patients = list_of_department_patients
     messagebox.showinfo(title="List of Patients", message=department.view_patients())
 def staff_list():
@@ -149,5 +164,5 @@ def staff_list():
 #     else:
 #         department.assign_department(patient)
 
-# main_page_compilation("nurse", "7654321")
+main_page_compilation("nurse", "7654321", "general")
 # patient_registration()
