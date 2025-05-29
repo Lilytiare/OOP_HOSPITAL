@@ -33,8 +33,11 @@ class Doctor(Staff):
         else:
             return f"Dr.{self.name} cannot discharge {patient.name}: not in the same Department."
 
-    def call_time_of_death(self):
+    def call_time_of_death(self, patient):
         time_of_death = datetime.now()
+        patient.billing_status = False
+        patient.registering_status = False
+        patient.medical_history.append(f"Dead. {time_of_death}.")
         return f"Time of death {time_of_death}"
 
     def get_current_patients(self):
