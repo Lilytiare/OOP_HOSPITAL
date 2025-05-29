@@ -1,0 +1,2 @@
+seq_id,id,name,age,contact_info,urgency_level,health_insurance,medical_history,doctors_appointed,registering_status,billing_status
+0,1234,umar,12,1234,1,True,[],[],True,True

@@ -1,0 +1,50 @@
+{
+    "1234567": {
+        "age": 34,
+        "role": "doctor",
+        "name": "house",
+        "password": "1234",
+        "contact_info": "010-1234-5678",
+        "shift": "night",
+        "department": "emergency",
+        "specialization": "surgery",
+        "list_of_patients": [],
+        "max_patients": 10
+    },
+    "7654321": {
+        "age": 22,
+        "role": "nurse",
+        "name": "kate",
+        "password": "1234",
+        "contact_info": "010-1111-2222",
+        "shift": "day",
+        "department": "general"
+    },
+    "1111111": {
+        "role": "admin",
+        "name": "admin",
+        "password": "1234",
+        "department": "general"
+    },
+    "7777777": {
+    "age": 45,
+    "role": "doctor",
+    "name": "drake",
+    "password": "7890",
+    "contact_info": "010-2222-3333",
+    "shift": "day",
+    "department": "general",
+    "specialization": "cardiology",
+    "list_of_patients": ["p102", "p103"],
+    "max_patients": 12
+    },
+    "3333333": {
+      "age": 29,
+      "role": "nurse",
+      "name": "linda",
+      "password": "5678",
+      "contact_info": "010-4444-5555",
+      "shift": "night",
+      "department": "emergency"
+    }
+}
