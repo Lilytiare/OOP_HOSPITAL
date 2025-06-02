@@ -1,4 +1,3 @@
-from ast import parse
 from tkinter import *
 from PIL import Image, ImageTk
 from tkinter import messagebox, simpledialog
