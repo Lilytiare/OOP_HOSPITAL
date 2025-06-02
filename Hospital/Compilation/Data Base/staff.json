@@ -8,7 +8,11 @@
         "shift": "night",
         "department": "emergency",
         "specialization": "surgery",
-        "list_of_patients": [],
+        "list_of_patients": [
+            "kate",
+            "vitaliy",
+            "lily"
+        ],
         "max_patients": 10
     },
     "7654321": {
@@ -19,6 +23,12 @@
         "contact_info": "010-1111-2222",
         "shift": "day",
         "department": "general"
+    },
+    "1": {
+        "role": "admin",
+        "name": "admin",
+        "password": "1234",
+        "department": ""
     },
     "7777777": {
         "age": 45,

@@ -3,7 +3,10 @@ from PIL import Image, ImageTk
 from tkinter import messagebox, simpledialog
 import pandas as pd
 import json
+import ast
 
+
+from Hospital.Services.Billing import Billing
 from Hospital.Services.Registering import *
 from Hospital.Person.Patient.Patient import Patient
 from Hospital.Person.Staff.Doctor import Doctor
@@ -34,7 +37,9 @@ def parse_patients():
     for index, row in patients_data.iterrows():
         row_dict = row.to_dict()
         if row_dict["registering_status"]:
-            list_of_department_patients.append(Patient(row_dict["age"], row_dict["id"],row_dict["name"], row_dict["contact_info"], row_dict["urgency_level"], row_dict["health_insurance"]))
+            inner_patient = Patient(row_dict["age"], row_dict["id"],row_dict["name"], row_dict["contact_info"], row_dict["urgency_level"], row_dict["health_insurance"])
+            inner_patient.medical_history = ast.literal_eval(row_dict["medical_history"])
+            list_of_department_patients.append(inner_patient)
     return list_of_department_patients
 def parse_staff():
     with open('C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/staff.json') as file:
@@ -48,20 +53,11 @@ def parse_staff():
         list_of_doctors = [Doctor(value["age"], value["id"], value["name"], value["contact_info"],value["shift"], department_name, value["specialization"],value["list_of_patients"], value["max_patients"]) for value in list_of_roles if value["role"] == "doctor"]
     return list_of_doctors,list_of_nurses,list_of_doctors + list_of_nurses
 
-# remove_staff() -> admin
-# add_staff() -> admin
-
-# appoint doctor -> Nurse --------------Done
-# edit filenames
-
-# Now edit the 2 registration methods to be more versatile, so that it could be reused !
-# ----^-----Done
 # TODO-1:Now construct the Admin's and Doctor's pages ! - >Done<
 # TODO-2: Change department -> possibly nurse
 # TODO-3: Use department class's assign_department for switching patients between the departments
 # TODO-4: Add the department input if the user is admin - >Done<
 # TODO -> Doctor, 2 Departments' methods to swap patients, Billing, Patients' status methods
-# --------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^----------
 
 def patient_registration():
     root = Toplevel()
@@ -211,6 +207,7 @@ def main_page_compilation(input_role, input_id, inner_department_name):
     if global_role == "nurse":
         Button(root, text="Patient registration", command=patient_registration, width=15).place(x=470, y=80)
         Button(root, text="Assign Patient to Doctor", command=doctor_assignation, width=20).place(x=270, y=140)
+        Button(root, text="Calculate Bills", command=bill, width=20).place(x=470, y=140)
     if global_role != "admin":
         Button(root, text="View Info", command=view_info, width=15).place(x=270, y=80)
     if global_role == "admin":
@@ -224,8 +221,8 @@ def main_page_compilation(input_role, input_id, inner_department_name):
                 messagebox.showinfo(title="Hospital Management System",message=drs_patients)
             ),width=20).place(x=470, y=80)
         Button(root, text="Call time of Death", command=call_death_time, width=20).place(x=470, y=140)
-        Button(root, text="Discharge Patient", command=discharge_patient, width=20).place(x=470, y=170)
-        Button(root, text="Treat Patient", command=treat_patient, width=20).place(x=470, y=200)
+        Button(root, text="Discharge Patient", command=discharge_patient, width=20).place(x=270, y=140)
+        Button(root, text="Treat Patient", command=treat_patient, width=20).place(x=470, y=170)
 
     root.mainloop()
 def patients_list():
@@ -280,6 +277,8 @@ def call_death_time():
         messagebox.showinfo(message=staff.call_time_of_death(p))
         edit_patient_data(PATIENTS_FILENAME,p.id,"registering_status",False,"edit")
         edit_patient_data(PATIENTS_FILENAME,p.id,"billing_status",False,"edit")
+        edit_patient_data(PATIENTS_FILENAME, p.id, "medical_history", "dead", "append")
+
         root.destroy()
     for x, patient in enumerate(parse_patients(), start=1):
         Button(root,
@@ -344,8 +343,31 @@ def treat_patient():
         ).place(relx=0.5, y=x * 30)
 
     root.mainloop()
+def bill():
+    root = Toplevel()
+    root.title("Hospital Management System")
+    height = len(parse_patients()) * 30 + 100
+    root.geometry(f"380x{height}")
+    original_bg = Image.open(VIEW_INFO_IMAGE)
+    resized_bg = ImageTk.PhotoImage(original_bg.resize((380, height)))
+    bg_label = Label(root, image=resized_bg, padx=10, pady=10)
+    bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+    def handle_billing(p):
+        billing = Billing()
+        status = billing.status(p)
+        if "yet" in status:
+            total_bill = billing.calculate_total(p)
+        else:
+            total_bill = status
+        # edit_patient_data(PATIENTS_FILENAME, p.id, "medical_history", [], "edit")
+        messagebox.showinfo(title="Hospital Management System", message=total_bill)
+        root.destroy()
 
+    for x, patient in enumerate(parse_patients(), start=1):
+        Button(root,
+               text=f"{patient.name}: {patient.id}",
+               command=lambda p=patient: handle_billing(p),
+               width=15
+               ).place(relx=0.5, y=x * 30)
 
-
-# main_page_compilation("house", "1234567", "emergency")
-# staff_registration()
+    root.mainloop()
