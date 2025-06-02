@@ -1,8 +1,7 @@
-from typing import final
 
 import pandas as pd
-
-STAFF_FILENAME = 'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/staff.json'
+import ast
+STAFF_FILENAME = '../Compilation/Data Base/staff.json'
 
 from Hospital.Person.Patient.Patient import *
 import json
@@ -34,19 +33,19 @@ class Registration:
         data.to_csv(filename, index=False)
         return data, patient.id
 
-    def save_edit_staff_data(self, staff):
+    def save_edit_staff_data(self, staff, pwd):
         final_result = {staff.id:{
             "age": staff.age,
             "role": staff.role,
-            "name": staff.age,
-            "password": staff.password,
+            "name": staff.name,
+            "password": pwd,
             "contact_info": staff.contact_info,
             "shift": staff.shift,
             "department": staff.department,
         }}
-        if final_result[staff.id][staff.role] == "doctor":
+        if final_result[staff.id]["role"] == "doctor":
             final_result[staff.id]["specialization"] = staff.specialization
-            final_result[staff.id]["list_of_patients"]=[]
+            final_result[staff.id]["list_of_patients"]=staff.list_of_patients
             final_result[staff.id]["max_patients"] = staff.max_patients
         try:
             with open(STAFF_FILENAME, "r") as data_file:
@@ -66,9 +65,38 @@ class Registration:
             return "The registration was successful!"
         else:
             return "Error with registration!"
-    def staff_register(self, staff):
-        data,staff_id = self.save_edit_staff_data(staff)
+    def staff_register(self, staff, pwd):
+        data,staff_id = self.save_edit_staff_data(staff, pwd)
         if staff_id in list(data.keys()):
             return "The registration was successful!"
         else:
             return "Error with registration!"
+
+def edit_patient_data(file_path, searched_row, searched_column, value,action):
+    data = pd.read_csv(file_path)
+    cell_val = data.loc[data["id"] == searched_row, searched_column].values[0]
+    if action == "append":
+        if isinstance(cell_val, str):
+            try:
+                cell_list = ast.literal_eval(cell_val)
+                if not isinstance(cell_list, list):
+                    cell_list = [cell_list]
+            except Exception:
+                cell_list = [cell_val]
+        elif isinstance(cell_val, list):
+            cell_list = cell_val
+        else:
+            cell_list = [cell_val]
+        cell_list.append(value)
+        data.loc[data["id"] == searched_row, searched_column] = str(cell_list)
+    elif action == "edit":
+        data.loc[data["id"] == searched_row, searched_column] = value
+    data.to_csv(file_path, index=False)
+
+def save_staff_data(assign_value,searched_key, searched_value):
+    with open(STAFF_FILENAME, "r+") as file:
+        staff_data = json.load(file)
+        file.seek(0)
+        staff_data[searched_key][searched_value] = assign_value
+        json.dump(staff_data, file, indent=4)
+        file.truncate()

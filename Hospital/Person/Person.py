@@ -1,22 +1,5 @@
 from abc import abstractmethod
 
-def assign_patient_to_department(General, Emergency, nurse, patient):
-    nurse.give_urgency_lvl(patient)
-    if patient.urgency_level >= 3:
-        Emergency.assign_department(patient)
-    else:
-        General.assign_department(patient)
-
-
-def assign_doctor(General, Emergency, nurse, patient):
-    if patient.department == "General":
-        output = nurse.assign_doctor(patient, General)
-    else:
-        output = nurse.assign_doctor(patient, Emergency)
-
-    return output
-
-
 class Person:
     def __init__(self, age=0, id=0, name=None, contact_info=None):
         self.age = age

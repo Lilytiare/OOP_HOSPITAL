@@ -4,7 +4,6 @@ class Billing(Service):
     def __init__(self, name="Billing"):
         self.name = name # what is it tho? is it useful? doesn't look like it
         self.fees = {"General": 0.5, "Emergency": 1}
-        self.b_p = 0
 
     def status(self, patient):
         if patient.billing_status:

@@ -20,31 +20,45 @@
         "shift": "day",
         "department": "general"
     },
-    "1111111": {
-        "role": "admin",
-        "name": "admin",
-        "password": "1234",
-        "department": "general"
-    },
     "7777777": {
-    "age": 45,
-    "role": "doctor",
-    "name": "drake",
-    "password": "7890",
-    "contact_info": "010-2222-3333",
-    "shift": "day",
-    "department": "general",
-    "specialization": "cardiology",
-    "list_of_patients": ["p102", "p103"],
-    "max_patients": 12
+        "age": 45,
+        "role": "doctor",
+        "name": "drake",
+        "password": "7890",
+        "contact_info": "010-2222-3333",
+        "shift": "day",
+        "department": "general",
+        "specialization": "cardiology",
+        "list_of_patients": [
+            "vitaliy",
+            "umar",
+            "tsku",
+            "umar",
+            "umar",
+            "umar",
+            "name"
+        ],
+        "max_patients": 12
     },
     "3333333": {
-      "age": 29,
-      "role": "nurse",
-      "name": "linda",
-      "password": "5678",
-      "contact_info": "010-4444-5555",
-      "shift": "night",
-      "department": "emergency"
+        "age": 29,
+        "role": "nurse",
+        "name": "linda",
+        "password": "5678",
+        "contact_info": "010-4444-5555",
+        "shift": "night",
+        "department": "emergency"
+    },
+    "1234321": {
+        "age": "41",
+        "role": "doctor",
+        "name": "Wilson",
+        "password": "54321",
+        "contact_info": "010-2345-6543",
+        "shift": "night",
+        "department": "emergency",
+        "specialization": "emergency",
+        "list_of_patients": [],
+        "max_patients": 10
     }
 }

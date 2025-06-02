@@ -5,24 +5,38 @@ from tkinter import messagebox
 from main_page import main_page_compilation
 BACKGROUND_IMAGE_PATH = 'images/img.png'
 ICON_IMAGE_PATH = 'images/img_1.png'
-
 def search_staff():
     role = role_input.get().lower()
     id = id_input.get()
     password = password_input.get()
+
     try:
-        with open("Data Base/staff.json", "r") as data_file:
+        with open("Data Base/staff.json", "r+") as data_file:
             data = json.load(data_file)
     except FileNotFoundError:
         messagebox.showwarning(title="Warning", message="Not Found")
-        return None
-    else:
-        if id in data:
-            if password == data[id]["password"]:
-                root.destroy()
-                main_page_compilation(role,id, data[id]["department"])
-        else:
-            messagebox.showwarning(title=f"Warning", message="Staff not found")
+        return
+
+    if id not in data or password != data[id]["password"]:
+        messagebox.showwarning(title="Warning", message="Staff not found or wrong password")
+        return
+
+    if role == "admin":
+        Label(root, text="Department: ").place(x=400, y=320)
+        dept_input = Entry(root, width=27)
+        dept_input.place(x=485, y=320)
+        def proceed():
+            dept = dept_input.get()
+            root.destroy()
+            main_page_compilation(role, id, dept)
+        login_btn.place(x=1000, y=1000)
+        Button(root, text="Continue", command=proceed).place(x=485, y=350)
+        messagebox.showinfo(message="You're an admin. Please enter the department and click Continue.")
+        return
+
+    root.destroy()
+    main_page_compilation(role, id, data[id]["department"])
+
 
 root = Tk()
 root.title("Hospital Management System")
@@ -55,5 +69,7 @@ role_input.place(x=485, y=290)
 
 
 
-Button(root, text="Login", command=search_staff, width=13).place(x=420, y=350)
+
+login_btn = Button(root, text="Login", command=search_staff, width=13)
+login_btn.place(x=420, y=350)
 root.mainloop()

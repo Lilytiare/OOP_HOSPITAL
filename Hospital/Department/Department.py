@@ -20,7 +20,7 @@ class Department(ABC):
             return f"No staff in {self._name} department."
         members = ""
         for s in self._staff:
-            members += s + "\n"
+            members += s.name + "\n"
         return f"{self._name} Staff:\n" + members.strip()
 
     def view_patients(self):

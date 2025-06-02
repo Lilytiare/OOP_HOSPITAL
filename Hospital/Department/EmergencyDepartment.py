@@ -16,10 +16,10 @@ class EmergencyDepartment(Department):
         try:
             spec = staff.specialization
             self.doctors.append(staff)
-            staff.department = "Emergency"
+            staff.department = "emergency"
         except:
             self.nurses.append(staff)
-            staff.department = "Emergency"
+            staff.department = "emergency"
         print(f"{staff.name} added to {self._name} department.")
 
     def assign_department(self, patient):

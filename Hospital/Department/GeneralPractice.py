@@ -12,12 +12,6 @@ class GeneralPractice(Department):
     def handle_treatment(self, patient, treatment):
         return treatment.give_treatment(patient)
 
-    def eat(self):
-        return "General Practice staff are eating."
-
-    def rest(self):
-        return "General Practice staff are resting."
-
     def assign_department(self, patient):
         if len(self.list_of_patients) < self.capacity:
             self.list_of_patients.append(patient)
@@ -30,8 +24,8 @@ class GeneralPractice(Department):
         try:
             spec = staff.specialization
             self.doctors.append(staff)
-            staff.department = "General"
+            staff.department = "general"
         except:
             self.nurses.append(staff)
-            staff.department = "General"
-        print(f"{staff.name} added to {self._name} department.")
+            staff.department = "general"
+        return f"{staff.name} added to {self._name} department."

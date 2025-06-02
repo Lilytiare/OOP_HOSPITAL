@@ -14,6 +14,9 @@ class Nurse(Staff):
             if len(d.list_of_patients) >= d.max_patients:
                 return f"Dr. {d.name} is at full capacity!"
             else:
-                d.list_of_patients.append(patient)
-                patient.doctors_appointed.append(d)
+                d.list_of_patients.append(patient.name)
+                patient.doctors_appointed.append(d.name)
                 patient.registering_status = True
+                return d
+
+
