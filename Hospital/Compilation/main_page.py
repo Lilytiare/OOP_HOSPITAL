@@ -53,12 +53,6 @@ def parse_staff():
         list_of_doctors = [Doctor(value["age"], value["id"], value["name"], value["contact_info"],value["shift"], department_name, value["specialization"],value["list_of_patients"], value["max_patients"]) for value in list_of_roles if value["role"] == "doctor"]
     return list_of_doctors,list_of_nurses,list_of_doctors + list_of_nurses
 
-# TODO-1:Now construct the Admin's and Doctor's pages ! - >Done<
-# TODO-2: Change department -> possibly nurse
-# TODO-3: Use department class's assign_department for switching patients between the departments
-# TODO-4: Add the department input if the user is admin - >Done<
-# TODO -> Doctor, 2 Departments' methods to swap patients, Billing, Patients' status methods
-
 def patient_registration():
     root = Toplevel()
     root.title("Hospital Management System")
