@@ -359,7 +359,7 @@ def bill():
             total_bill = billing.calculate_total(p)
         else:
             total_bill = status
-        # edit_patient_data(PATIENTS_FILENAME, p.id, "medical_history", [], "edit")
+        edit_patient_data(PATIENTS_FILENAME, p.id, "medical_history", "[]", "edit")
         messagebox.showinfo(title="Hospital Management System", message=total_bill)
         root.destroy()
 

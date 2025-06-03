@@ -1,9 +1,9 @@
 seq_id,id,name,age,contact_info,urgency_level,health_insurance,medical_history,doctors_appointed,registering_status,billing_status
-0,1234567,umar,12,1234,1,True,"['Rehabilitative','Pharmaceutical']","['drake', 'drake']",True,True
+0,1234567,umar,12,1234,1,True,[],"['drake', 'drake']",True,True
 1,123456677,kate,21,1234,3,True,[],[],True,True
-2,1209990,vitaliy,18,010-0000-0000,100,False,['Pharmaceutical'],['drake'],True,True
+2,1209990,vitaliy,18,010-0000-0000,100,False,[],['drake'],True,True
 3,12340987,tsku,18,010-1111-1111,3,True,[],[],True,True
 4,11122333,lily,19,010-8888-7777,1,True,[],[],False,True
 5,7654999,michael,65,010-9990-9988,2,True,[],['drake'],False,True
 6,1,name,33,1,2,True,[],['drake'],False,True
-7,0987654,nate,19,010-0099-8855,2,True,[],[],True,True
+7,987654,nate,19,010-0099-8855,2,True,[],['drake'],True,True
