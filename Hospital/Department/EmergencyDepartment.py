@@ -4,7 +4,6 @@ class EmergencyDepartment(Department):
     def __init__(self, name="Emergency Department", capacity=10):
         super().__init__(name)
         self.capacity = capacity
-        self.e_p = 0
 
     def perform_task(self):
         return "Emergency Department is responding to urgent cases."

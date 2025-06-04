@@ -4,7 +4,6 @@ class GeneralPractice(Department):
     def __init__(self, name="General Practice", capacity=20):
         super().__init__(name)
         self.capacity = capacity
-        self.g_p = 0
 
     def perform_task(self):
         return "General Practice is conducting standard health checks."

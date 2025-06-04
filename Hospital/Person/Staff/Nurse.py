@@ -3,7 +3,6 @@ from Hospital.Person.Staff.Staff import *
 class Nurse(Staff):
     def __init__(self, age, id, name, contact_info, shift, department: str):
         super().__init__(age, id, name, contact_info, shift, department)
-        self.n_p = 0
         self.role = "nurse"
 
     def view_info(self):
