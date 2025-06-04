@@ -2,16 +2,24 @@ from tkinter import *
 import json
 from tkinter import messagebox
 
-from main_page import main_page_compilation
-BACKGROUND_IMAGE_PATH = 'images/img.png'
-ICON_IMAGE_PATH = 'images/img_1.png'
+from Hospital.Compilation.main_page import main_page_compilation
+import os
+
+from Hospital.Services.Registering import STAFF_FILENAME
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+BACKGROUND_IMAGE_PATH = os.path.join(BASE_DIR, "Hospital", "Compilation", "images", "img.png")
+ICON_IMAGE_PATH = os.path.join(BASE_DIR, "Hospital", "Compilation", "images", "img_1.png")
+
+
 def search_staff():
     role = role_input.get().lower()
     id = id_input.get()
     password = password_input.get()
 
     try:
-        with open("Data Base/staff.json", "r+") as data_file:
+        with open(os.path.join(BASE_DIR, "Hospital", "Compilation", "Data Base", "staff.json"), "r+") as data_file:
             data = json.load(data_file)
     except FileNotFoundError:
         messagebox.showwarning(title="Warning", message="Not Found")

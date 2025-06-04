@@ -42,7 +42,7 @@ def parse_patients():
             list_of_department_patients.append(inner_patient)
     return list_of_department_patients
 def parse_staff():
-    with open('C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/staff.json') as file:
+    with open('Data Base/staff.json') as file:
         staff_data = json.load(file)
         list_of_roles = []
         for key, value in staff_data.items():
@@ -52,7 +52,6 @@ def parse_staff():
         list_of_nurses = [Nurse(value["age"], value["id"], value["name"], value["contact_info"],value["shift"], department_name) for value in list_of_roles if value["role"] == "nurse"]
         list_of_doctors = [Doctor(value["age"], value["id"], value["name"], value["contact_info"],value["shift"], department_name, value["specialization"],value["list_of_patients"], value["max_patients"]) for value in list_of_roles if value["role"] == "doctor"]
     return list_of_doctors,list_of_nurses,list_of_doctors + list_of_nurses
-
 def patient_registration():
     root = Toplevel()
     root.title("Hospital Management System")
@@ -97,7 +96,7 @@ def patient_registration():
     def collect_data():
         patient = Patient(age_input.get(),id_input.get(),name_input.get(),contact_info.get(),urgency_level = urgency_level.get(),health_insurance=bool(selected_option.get()))
         register = Registration()
-        register.patient_register(patient, f'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/{department_name}.csv')
+        register.patient_register(patient, f'Data Base/{department_name}.csv')
         root.destroy()
     Button(root, text="Register", command=collect_data, width=15).place(x=370, y=210)
     root.mainloop()
@@ -174,7 +173,7 @@ def main_page_compilation(input_role, input_id, inner_department_name):
     global department_name
     department_name  = inner_department_name
     global PATIENTS_FILENAME
-    PATIENTS_FILENAME = f'C:/Users/umarb/PycharmProjects/OOP_HOSPITAL/Hospital/Compilation/Data Base/{inner_department_name}.csv'
+    PATIENTS_FILENAME = f'../Compilation/Data Base/{inner_department_name}.csv'
     parse_patients()
 
     global staff
