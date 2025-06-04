@@ -12,6 +12,10 @@ This Hospital Management System is a Python-based application developed with **O
 - Simulate real-time operations like billing, registration, and patient care
 - Provide a user-friendly graphical interface for interaction
 
+## Purpose
+
+The purpose of the Project is to address the issues with managing the Hospital, with a real life simulations.
+
 ## Class Architecture
 
 ### Core Classes and Relationships
